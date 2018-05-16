@@ -7,15 +7,15 @@ class asteroid(object):
 		self.size=(self.size,self.size)
 		self.ast = pygame.image.load('meteor2.png')
 		self.ast = pygame.transform.scale(self.ast, self.size)
-		self.xpos = 5#random.randint(1,width)
-		self.ypos = 5#random.randint(1,height/2)
-		self.xvel = 5#random.randint(-3,3)
+		self.xpos = random.randint(1,width)
+		self.ypos = random.randint(1,height/2)
+		self.xvel = random.randint(-3,3)
 		if self.xvel == 0:
 			self.xvel = 1
-		self.yvel = 4 #random.randint(-3,3)
+		self.yvel = random.randint(-3,3)
 		if self.yvel == 0:
 			self.yvel = 1
-		self.rotdir=1#random.randint(1,2)
+		self.rotdir= random.randint(1,2)
 		self.angle = 0
 	def redraw(self):
 		self.xpos=self.xpos+self.xvel
@@ -42,9 +42,9 @@ class asteroid(object):
 	   
 class shipclass(object):
 	def __init__(self):   
-		self.size=(150)
-		self.rad=self.size/2
-		self.size=(self.size,self.size)
+		self.size = (150)
+		self.rad = self.size/2
+		self.size = (self.size,self.size)
 		self.ship = pygame.image.load('ship.png')
 		self.ship = pygame.transform.scale(self.ship, self.size)
 		self.xpos = width/2
@@ -86,7 +86,7 @@ class shipclass(object):
 	   
 class bullet(object):
 	def __init__(self):
-		self.alive=True
+		self.alive = True
 		self.size = 20
 		self.rad = self.size/2
 		self.size = (self.size,self.size)
@@ -128,7 +128,8 @@ pygame.display.set_caption("Asteroids")
 space = pygame.image.load('SKY2.jpeg')
 space = pygame.transform.scale(space,(width,height))
 done = False
-bounce=pygame.mixer.Sound('BOUNCE.wav')
+bounce = pygame.mixer.Sound('BOUNCE.wav')
+boom = pygame.mixer.Sound('BOOM.wav')
 clock = pygame.time.Clock()
 score = 0
 
@@ -166,10 +167,8 @@ while done == False:
 	for ast in astlist:
 		D=math.sqrt((ast.xpos-ship.xpos)**2+(ast.ypos-ship.ypos)**2)
 		if (ast.rad+ship.rad)>D:
-			continue
-			#print('Boom')
-			#boom.play()
-			#destroy.append(ship)
+			boom.play()
+			destroy.append(ship)
 	if ship in destroy:
 		#time.sleep(1)
 		break 
